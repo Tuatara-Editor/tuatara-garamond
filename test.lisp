@@ -105,7 +105,7 @@ frontend, as a second value."
       (let ((plain (merge-pathnames "plain.txt" dir)))
         (alexandria:write-string-into-file (format nil "One.~%") plain)
         (multiple-value-bind (f editor)
-            (run-keys (format nil "C-x C-f C-a C-k ~a RET C-u 2 M-x g a r a m o n d - s e t - s p a c i n g RET y RET"
+            (run-keys (format nil "C-x C-f C-a C-k ~a RET C-u 2 M-x g a r a m o n d - s e t - s p a c i n g RET y"
                               (rimu-typed (namestring plain)))
                       :width 160)
           (is string= (format nil "One.~%~%Local Variables:~%sentence-end-double-space: t~%End:~%") (session-text editor))

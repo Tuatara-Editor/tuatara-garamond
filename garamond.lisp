@@ -173,7 +173,7 @@ has a file that says already, or *GARAMOND-PERSIST* and the answer is yes."
                  (buffer-file b)
                  (or (garamond-declared-p b)
                      (and *garamond-persist*
-                          (yes-or-no-p* "Write this spacing in the file?")))))))
+                          (y-or-n-p* "Write this spacing in the file?")))))))
 
 (defun garamond-declare (buffer spaces persist)
   "Make BUFFER's sentences SPACES apart, 1 or 2, \\[garamond-mode] on unless it
