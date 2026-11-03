@@ -1,6 +1,6 @@
 ;;;; garamond.lisp --- The spaces between sentences, kept by the document itself: garamond.
 ;;;; Copyright (C) 2026 Michael A Jones.  GPL-3.0-or-later; see LICENSE.
-;;;; Needs: Tuatara 0.90.13
+;;;; Needs: Tuatara 0.90.14
 ;;;;
 ;;;; A package, not part of the editor: loaded by (load-package "garamond") in
 ;;;; the init file. Made from the Emacs package garamond
