@@ -1,5 +1,6 @@
 ;;;; garamond.lisp --- The spaces between sentences, kept by the document itself: garamond.
 ;;;; Copyright (C) 2026 Michael A Jones.  GPL-3.0-or-later; see LICENSE.
+;;;; Needs: Tuatara 0.90.14
 ;;;;
 ;;;; A package, not part of the editor: loaded by (load-package "garamond") in
 ;;;; the init file. Made from the Emacs package garamond
@@ -172,7 +173,7 @@ has a file that says already, or *GARAMOND-PERSIST* and the answer is yes."
                  (buffer-file b)
                  (or (garamond-declared-p b)
                      (and *garamond-persist*
-                          (yes-or-no-p* "Write this spacing in the file?")))))))
+                          (y-or-n-p* "Write this spacing in the file?")))))))
 
 (defun garamond-declare (buffer spaces persist)
   "Make BUFFER's sentences SPACES apart, 1 or 2, \\[garamond-mode] on unless it
