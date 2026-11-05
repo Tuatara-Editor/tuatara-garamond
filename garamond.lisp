@@ -229,7 +229,7 @@ octets of a buffer whose text from the octet START is TEXT."
   "The runs of spaces of BUFFER from START to END after a sentence's end in
 prose that are not as long as they should be, each (FROM TO . WIDE) in octets
 \(GARAMOND-GAP-RUNS), WIDE the spaces it should have: SPACES, or one after an
-abbreviation (ABBREVIATION-BEFORE-P: e.g., Dr.), whose full stop ends no
+abbreviation (ABBREVIATION-BEFORE-P, as in Dr.), whose full stop ends no
 sentence; not after a list item's number, nor in code, tables, links or maths
 \(PROSE-TEST, Org's parse read once)."
   (let ((text (buffer-string buffer :start start :end end))
@@ -277,7 +277,7 @@ cannot run there."
     (setf (buffer-local buffer :garamond) t)))
 
 (defun garamond-file-mode (buffer name value)
-  "For a file's own settings: mode: garamond (-*- mode: org; mode: garamond -*-)
+  "For a file's own settings, `mode: garamond' (as in `-*- mode: org; mode: garamond -*-')
 has \\[garamond-mode] on in BUFFER, unless it cannot run there; true when
 taken."
   (when (and (string= name "mode") (stringp value) (string-equal value "garamond"))
