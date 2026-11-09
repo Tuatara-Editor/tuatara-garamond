@@ -1,6 +1,6 @@
 ;;;; garamond.lisp --- The spaces between sentences, kept by the document itself: garamond.
 ;;;; Copyright (C) 2026 Michael A Jones.  GPL-3.0-or-later; see LICENSE.
-;;;; Needs: Tuatara 0.90.14
+;;;; Needs: Tuatara 0.90.20
 ;;;;
 ;;;; A package, not part of the editor: loaded by (load-package "garamond") in
 ;;;; the init file. Made from the Emacs package garamond
@@ -71,12 +71,12 @@ the lists, help and terminals Tuatara makes, where nobody writes prose.")
 punctuation; else NIL. A list item's number (1. 10.) ends none, as no letter
 comes before its full stop."
   (let ((p position))
-    (loop while (and (plusp p) (sentence-closing-char-p (char-before-position buffer p)))
+    (loop while (and (plusp p) (sentence-closing-char-p (buffer-char-before buffer p)))
           do (setf p (buffer-forward-char buffer p -1)))
-    (when (and (plusp p) (sentence-end-char-p (char-before-position buffer p)))
+    (when (and (plusp p) (sentence-end-char-p (buffer-char-before buffer p)))
       (let ((before (buffer-forward-char buffer p -1)))
         (and (plusp before)
-             (alpha-char-p (char-before-position buffer before))
+             (alpha-char-p (buffer-char-before buffer before))
              p)))))
 
 ;;; Typing
@@ -105,7 +105,7 @@ number."
              (sentence-end-double-space-p buffer))
     (let* ((end (buffer-point buffer))
            (run (loop with p = end
-                      while (and (plusp p) (eql (char-before-position buffer p) #\Space))
+                      while (and (plusp p) (eql (buffer-char-before buffer p) #\Space))
                       do (decf p)
                       finally (return p)))
            (stop (garamond-sentence-end-before buffer run)))
