@@ -1,6 +1,6 @@
 ;;;; garamond.lisp --- The spaces between sentences, kept by the document itself: garamond.
 ;;;; Copyright (C) 2026 Michael A Jones.  GPL-3.0-or-later; see LICENSE.
-;;;; Needs: Tuatara 0.90.20
+;;;; Needs: Tuatara 0.90.25
 ;;;;
 ;;;; A package, not part of the editor: loaded by (load-package "garamond") in
 ;;;; the init file. Made from the Emacs package garamond
@@ -37,31 +37,47 @@
 ;;; Settings
 
 (define-package-setting *garamond-double-space-on-typing* t
-  "True for \\[garamond-mode] to make one space typed after a sentence's end
-two in a buffer whose sentences are two spaces apart; NIL to leave typing
-alone, the spacing still said in the mode line, bracketed: (2S). Read afresh
-at every space typed.")
+  "Whether one space typed after a sentence's end becomes two.
+It applies with \\[garamond-mode] on, in a buffer whose sentences are two
+spaces apart, and is read afresh at every space typed.
+- t: the one space typed becomes two.
+- nil: typing is left alone, the spacing still said in the mode line,
+  bracketed: (2S)."
+  :values boolean)
 
 (define-package-setting *garamond-persist* t
-  "True for \\[garamond-set-spacing] and \\[garamond-adjust-spacing] to ask
-whether to write the spacing in the file when the whole buffer is concerned
-and the file does not say yet; NIL never to ask. A file that says already is
-kept up to date without asking.")
+  "Whether \\[garamond-set-spacing] and \\[garamond-adjust-spacing] ask to write
+the spacing in the file.
+They ask when the whole buffer is concerned and the file does not say yet. A
+file that says already is kept up to date without asking.
+- t: ask.
+- nil: never ask."
+  :values boolean)
 
 (define-package-setting *garamond-follow-declarations* t
-  "True for a file that says how far apart its sentences are (its Local
-Variables: block naming sentence-end-double-space) to have \\[garamond-mode]
-on as it is opened; NIL to leave it off until asked for.")
+  "Whether a file that says how far apart its sentences are has \\[garamond-mode]
+on as it is opened.
+A file says it in its Local Variables: block naming sentence-end-double-space.
+- t: the mode is turned on.
+- nil: the mode is left off until asked for."
+  :values boolean)
 
 (define-package-setting *garamond-mode-line* t
-  "True for the mode line to say a buffer's spacing while \\[garamond-mode]
-is on in it: 2S for two spaces between sentences, 1S for one, bracketed, (2S),
-while typing is left alone (*GARAMOND-DOUBLE-SPACE-ON-TYPING*); NIL for
-nothing.")
+  "Whether the mode line says a buffer's spacing while \\[garamond-mode] is on in
+it.
+The spacing is 2S for two spaces between sentences, 1S for one, bracketed,
+\(2S), while typing is left alone (*GARAMOND-DOUBLE-SPACE-ON-TYPING*).
+- t: the spacing is said.
+- nil: nothing is said."
+  :values boolean)
 
 (define-package-setting *garamond-unsuitable-modes* '(special-mode)
-  "Major modes, those made from them included, \\[garamond-mode] never runs in:
-the lists, help and terminals Tuatara makes, where nobody writes prose.")
+  "The major modes \\[garamond-mode] never runs in.
+Those made from them are included: the lists, help and terminals Tuatara
+makes, where nobody writes prose.
+- a list of modes' names: special-mode by default.
+- nil: no mode is shut out."
+  :values (list-of "a mode's name"))
 
 ;;; Where a sentence ends
 
@@ -187,7 +203,8 @@ Variables: block (the buffer left modified). How the message saying so ends."
     (concatenate 'string
                  (if refused (format nil "; typing is left alone, ~a" refused) "")
                  (cond ((not (and persist (buffer-file buffer))) "")
-                       ((not *file-local-variables*) "; not written in the file, a file's own settings being off (*file-local-variables*)")
+                       ((not *file-local-variables*)
+                        "; not written in the file, a file's own settings being off (*file-local-variables*)")
                        (t (set-file-local-setting buffer "sentence-end-double-space" (= spaces 2))
                           "; written in the file")))))
 

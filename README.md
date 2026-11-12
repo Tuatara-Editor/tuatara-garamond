@@ -28,7 +28,8 @@ commands then follow the spacing the file asks for.
 
 4. **Save** with `C-x C-s`, **quit** with `C-x C-c`, and **start Tuatara
    again**. Answer `y` when it asks whether to load garamond; it asks once.
-5. **Check it**: open a file with a `Local Variables:` block saying `sentence-end-double-space: t`; the mode line shows `2S`.
+5. **Check it**: open a file with a `Local Variables:` block saying
+   `sentence-end-double-space: t`; the mode line shows `2S`.
 
 ## Commands
 
@@ -54,13 +55,13 @@ filling pass over, with those of your own added by
 
 ## Settings
 
-| Setting | Standard | What it is |
-|---|---|---|
-| `*garamond-double-space-on-typing*` | `t` | `nil` leaves typing alone; the spacing is still said in the mode line, bracketed: `(2S)`. |
-| `*garamond-persist*` | `t` | `nil` never asks to write the spacing in the file. A file that says already is kept up to date. |
-| `*garamond-follow-declarations*` | `t` | `nil` leaves `garamond-mode` off in files that say their spacing, until asked for. |
-| `*garamond-mode-line*` | `t` | `nil` says nothing in the mode line. |
-| `*garamond-unsuitable-modes*` | `'(special-mode)` | Major modes the mode never runs in, those made from them included. |
+| Setting | Standard | Values | What it is |
+|---|---|---|---|
+| `*garamond-double-space-on-typing*` | `t` | `t` or `nil` | `nil` leaves typing alone; the spacing is still said in the mode line, bracketed: `(2S)`. |
+| `*garamond-persist*` | `t` | `t` or `nil` | `nil` never asks to write the spacing in the file. A file that says already is kept up to date. |
+| `*garamond-follow-declarations*` | `t` | `t` or `nil` | `nil` leaves `garamond-mode` off in files that say their spacing, until asked for. |
+| `*garamond-mode-line*` | `t` | `t` or `nil` | `nil` says nothing in the mode line. |
+| `*garamond-unsuitable-modes*` | `'(special-mode)` | a list of modes | Major modes the mode never runs in, those made from them included. |
 
 Set them in the package's `:config`:
 
@@ -90,7 +91,7 @@ tools/test.sh
 ```
 
 runs its tests against a Tuatara source tree: `../tuatara` beside this
-repository, or `../../tuatara` beside the folder it is in, unless
+repository, or `../../tuatara` beside the directory it is in, unless
 `TUATARA_SOURCE` names another. How a package is laid out and which of
 Tuatara's names it may use are in Tuatara's
 [HACKING.org](https://github.com/Tuatara-Editor/tuatara/blob/main/HACKING.org);

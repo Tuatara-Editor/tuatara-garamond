@@ -22,7 +22,8 @@ frontend, as a second value."
   (let ((tuatara-user:*extra-sentence-abbreviations* '("Inc."))
         (tuatara-user:*removed-sentence-abbreviations* '("St.")))
     (is string= "See Dr. Who at Acme Inc. on Main St.  Go"
-        (garamond-typed-text "text-mode" "S e e SPC D r . SPC W h o SPC a t SPC A c m e SPC I n c . SPC o n SPC M a i n SPC S t . SPC G o"))))
+        (garamond-typed-text
+         "text-mode" "S e e SPC D r . SPC W h o SPC a t SPC A c m e SPC I n c . SPC o n SPC M a i n SPC S t . SPC G o"))))
 
 (define-test (garamond typing-in-text)
   ;; one space typed after a sentence's end is two, more are two; not after an abbreviation or a list's number
@@ -33,7 +34,8 @@ frontend, as a second value."
   ;; a buffer one space apart: left alone, the mode line saying 1S
   (let ((tuatara.defaults::*modal-editing* nil))
     (multiple-value-bind (f editor)
-        (run-keys "M-x t e x t - m o d e RET C-u 1 M-x g a r a m o n d - s e t - s p a c i n g RET O n e . SPC T w o" :width 80)
+        (run-keys "M-x t e x t - m o d e RET C-u 1 M-x g a r a m o n d - s e t - s p a c i n g RET O n e . SPC T w o"
+                  :width 80)
       (is string= "One. Two" (session-text editor))
       (true (tuatara.frontend.fake:fake-frame-showing f "1S"))))
   ;; typing left alone by the setting: bracketed
@@ -68,30 +70,36 @@ frontend, as a second value."
   (let ((tuatara.defaults::*modal-editing* nil)
         (text (format nil "One.  Two. Three!   Four e.g.  five.~%1.  Item.~%  Indented.~%")))
     (multiple-value-bind (f editor)
-        (run-keys "M-x t e x t - m o d e RET C-u 2 M-x g a r a m o n d - a d j u s t - s p a c i n g RET" :text text :width 80)
+        (run-keys "M-x t e x t - m o d e RET C-u 2 M-x g a r a m o n d - a d j u s t - s p a c i n g RET"
+                  :text text :width 80)
       ;; one space after an abbreviation, as filling leaves it
       (is string= (format nil "One.  Two.  Three!  Four e.g. five.~%1.  Item.~%  Indented.~%") (session-text editor))
       (true (tuatara.frontend.fake:fake-frame-showing f "2 sentence breaks made 2 spaces, 1 after an abbreviation one"))
       (true (tuatara.frontend.fake:fake-frame-showing f "2S")))
     (is string= (format nil "One. Two. Three! Four e.g. five.~%1.  Item.~%  Indented.~%")
-        (session-text (nth-value 1 (run-keys "M-x t e x t - m o d e RET C-u 1 M-x g a r a m o n d - a d j u s t - s p a c i n g RET" :text text :width 80))))
+        (session-text (nth-value 1 (run-keys "M-x t e x t - m o d e RET C-u 1 M-x g a r a m o n d - a d j u s t - s p a c i n g RET"
+                                             :text text :width 80))))
     ;; an empty selection is none: the whole buffer is adjusted
     (is string= (format nil "One.  Two.  Three!  Four e.g. five.~%1.  Item.~%  Indented.~%")
-        (session-text (nth-value 1 (run-keys "M-x t e x t - m o d e RET C-SPC C-u 2 M-x g a r a m o n d - a d j u s t - s p a c i n g RET" :text text :width 80))))
+        (session-text (nth-value 1 (run-keys "M-x t e x t - m o d e RET C-SPC C-u 2 M-x g a r a m o n d - a d j u s t - s p a c i n g RET"
+                                             :text text :width 80))))
     ;; in Org, a source block's text is left as it is
     (is string= (format nil "A.  B.~%#+begin_src sh~%echo a. b~%#+end_src~%")
         (session-text (nth-value 1 (run-keys "M-x o r g - m o d e RET C-u 2 M-x g a r a m o n d - a d j u s t - s p a c i n g RET"
-                                             :text (format nil "A. B.~%#+begin_src sh~%echo a. b~%#+end_src~%") :width 80))))))
+                                             :text (format nil "A. B.~%#+begin_src sh~%echo a. b~%#+end_src~%")
+                                             :width 80))))))
 
 (define-test (garamond files-that-say)
   (with-test-directory (dir)
     (let ((tuatara.defaults::*modal-editing* nil)
           (path (merge-pathnames "two.txt" dir)))
       ;; a file that says: Garamond on as it is opened, typing doubled
-      (alexandria:write-string-into-file (format nil "One.~%~%# Local Variables:~%# sentence-end-double-space: t~%# End:~%") path)
+      (alexandria:write-string-into-file
+       (format nil "One.~%~%# Local Variables:~%# sentence-end-double-space: t~%# End:~%") path)
       (multiple-value-bind (f editor)
           (run-keys (format nil "C-x C-f C-a C-k ~a RET C-e SPC T w o" (rimu-typed (namestring path))) :width 160)
-        (is string= (format nil "One.  Two~%~%# Local Variables:~%# sentence-end-double-space: t~%# End:~%") (session-text editor))
+        (is string= (format nil "One.  Two~%~%# Local Variables:~%# sentence-end-double-space: t~%# End:~%")
+            (session-text editor))
         (true (tuatara.frontend.fake:fake-frame-showing f "2S"))
         (forget-file-buffers))
       ;; not followed when told not to
@@ -108,7 +116,8 @@ frontend, as a second value."
             (run-keys (format nil "C-x C-f C-a C-k ~a RET C-u 2 M-x g a r a m o n d - s e t - s p a c i n g RET y"
                               (rimu-typed (namestring plain)))
                       :width 160)
-          (is string= (format nil "One.~%~%Local Variables:~%sentence-end-double-space: t~%End:~%") (session-text editor))
+          (is string= (format nil "One.~%~%Local Variables:~%sentence-end-double-space: t~%End:~%")
+              (session-text editor))
           (true (tuatara.frontend.fake:fake-frame-showing f "written in the file"))
           (forget-file-buffers)))
       ;; mode: garamond on the first line
@@ -151,7 +160,8 @@ frontend, as a second value."
   (is equal '((4 . 6) (11 . 12)) (garamond::garamond-gap-runs "Ünë.  Two?” Three"))
   (is equal '((6 . 8) (15 . 16)) (garamond::runs-octets "Ünë.  Two?” Three" '((4 . 6) (11 . 12)) 0))
   ;; adjusted, a file with such lines keeps them as they are
-  (let ((b (tuatara.buffer:make-buffer "*garamond-crlf*" :text (format nil "One. ~c~%Two.  Three. Four~c~%" #\Return #\Return))))
+  (let ((b (tuatara.buffer:make-buffer "*garamond-crlf*"
+                                       :text (format nil "One. ~c~%Two.  Three. Four~c~%" #\Return #\Return))))
     (unwind-protect
          (progn
            (tuatara.defaults::set-major-mode b 'tuatara.defaults::text-mode)
