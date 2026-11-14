@@ -3,8 +3,8 @@
 ;;;; Needs: Tuatara 0.90.25
 ;;;;
 ;;;; A package, not part of the editor: loaded by (load-package "garamond") in
-;;;; the init file. Made from the Emacs package garamond
-;;;; (github.com/yardquit/garamond).
+;;;; the init file. Made from garamond (github.com/yardquit/garamond), by the
+;;;; same author; README.md says more.
 ;;;;
 ;;;; One space or two after a full stop is a property of a document, so the
 ;;;; document says which in its own Local Variables: block,
@@ -263,11 +263,11 @@ sentence; not after a list item's number, nor in code, tables, links or maths
 whole buffer without one, 1 or 2 spaces, as one change, then say the buffer
 uses that spacing as \\[garamond-set-spacing] does. A sentence's end here is
 . ? ! … or ‽ after a letter, with any closing quotes or brackets, before more
-text on the line. After an abbreviation's full stop (e.g., Dr.) there is always one
-space, as filling leaves it. Line breaks, indentation, a list item's number and what is not
-prose (code, tables, links, maths) are left as they are. A count gives the
-spacing, else it is asked; whether to write it in the file is asked only for
-the whole buffer."
+text on the line. After an abbreviation's full stop (e.g., Dr.) there is
+always one space, as filling leaves it. Line breaks, indentation, a list
+item's number and what is not prose (code, tables, links, maths) are left as
+they are. A count gives the spacing, else it is asked; whether to write it in
+the file is asked only for the whole buffer."
   (let* ((b (current-buffer))
          (region (selected-region b))
          (start (if region (first region) 0))
@@ -294,9 +294,9 @@ cannot run there."
     (setf (buffer-local buffer :garamond) t)))
 
 (defun garamond-file-mode (buffer name value)
-  "For a file's own settings, `mode: garamond' (as in `-*- mode: org; mode: garamond -*-')
-has \\[garamond-mode] on in BUFFER, unless it cannot run there; true when
-taken."
+  "For a file's own settings, `mode: garamond' (as in `-*- mode: org; mode:
+garamond -*-') has \\[garamond-mode] on in BUFFER, unless it cannot run there;
+true when taken."
   (when (and (string= name "mode") (stringp value) (string-equal value "garamond"))
     (unless (garamond-refusal buffer)
       (setf (buffer-local buffer :garamond) t))
@@ -321,11 +321,14 @@ it is zero or less."
           ((and (not (garamond-on-p buffer)) (not declared) (null (buffer-file buffer)))
            "This buffer has no file and nothing says its spacing: \\[garamond-set-spacing] says it here.")
           ((and (not (garamond-on-p buffer)) (not declared))
-           "Nothing says this buffer's spacing, so Garamond leaves it alone. \\[garamond-set-spacing] says it and offers to write it in the file.")
+           (format nil "Nothing says this buffer's spacing, so Garamond leaves it alone. ~
+                        \\[garamond-set-spacing] says it and offers to write it in the file."))
           ((not (garamond-on-p buffer))
            (if *garamond-follow-declarations*
-               "The file says its spacing, and Garamond was switched off since, or the file was opened before the package was loaded: \\[garamond-mode] switches it on."
-               "The file says its spacing, but *garamond-follow-declarations* is off, so it is not followed: \\[garamond-follow-declarations-mode]."))
+               (format nil "The file says its spacing, and Garamond was switched off since, or the file was opened ~
+                            before the package was loaded: \\[garamond-mode] switches it on.")
+               (format nil "The file says its spacing, but *garamond-follow-declarations* is off, so it is not ~
+                            followed: \\[garamond-follow-declarations-mode].")))
           ((not (sentence-end-double-space-p buffer))
            "Garamond is on, and this buffer's sentences are one space apart: typing is left alone.")
           ((not *garamond-double-space-on-typing*)
