@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src  'self'; img-src 'self' file:; script-src 'self'; base-uri 'none'; form-action 'none'">
+<title>Typing and where a second space goes &ndash; garamond Manual</title>
+<link rel="icon" href="tuatara.png">
+<link rel="stylesheet" href="manual.css">
+<script src="manual.js" defer></script>
+</head>
+<body>
+<div class="site">
+<nav class="toc" id="contents" aria-label="Contents">
+<strong>garamond Manual</strong>
+<small>for Tuatara 0.90.25 and later</small>
+<p class="tools"><a href="all.html">All on one page</a>
+<button type="button" class="theme" hidden>Dark</button></p>
+<input type="search" placeholder="Search the manual" aria-label="Search the manual">
+<ol class="chapters"><li id="nav-index"><a href="index.html">0 Contents</a></li><li id="nav-01-what-garamond-is"><a href="01-what-garamond-is.html">1 What garamond is</a><ol><li><a href="01-what-garamond-is.html#seeing-that-it-works">1.1 Seeing that it works</a></li><li><a href="01-what-garamond-is.html#what-this-manual-covers">1.2 What this manual covers</a></li></ol></li><li id="nav-02-setting-and-changing-the-spacing"><a href="02-setting-and-changing-the-spacing.html">2 Setting and changing the spacing</a><ol><li><a href="02-setting-and-changing-the-spacing.html#saying-it">2.1 Saying it</a></li><li><a href="02-setting-and-changing-the-spacing.html#making-the-text-match">2.2 Making the text match</a></li><li><a href="02-setting-and-changing-the-spacing.html#in-the-file">2.3 In the file</a></li></ol></li><li id="nav-03-typing-and-where-a-second-space-goes" class="here"><a class="here" href="03-typing-and-where-a-second-space-goes.html">3 Typing and where a second space goes</a><ol><li><a href="03-typing-and-where-a-second-space-goes.html#the-mode">3.1 The mode</a></li><li><a href="03-typing-and-where-a-second-space-goes.html#where-a-second-space-goes">3.2 Where a second space goes</a></li><li><a href="03-typing-and-where-a-second-space-goes.html#abbreviations">3.3 Abbreviations</a></li><li><a href="03-typing-and-where-a-second-space-goes.html#what-a-sentences-end-is">3.4 What a sentence's end is</a></li></ol></li><li id="nav-04-settings-and-finding-out-why"><a href="04-settings-and-finding-out-why.html">4 Settings and finding out why nothing happens</a><ol><li><a href="04-settings-and-finding-out-why.html#the-settings">4.1 The settings</a></li><li><a href="04-settings-and-finding-out-why.html#finding-out-why">4.2 Finding out why</a></li></ol></li><li id="nav-05-every-command-and-setting"><a href="05-every-command-and-setting.html">5 Every command and setting</a><ol><li><a href="05-every-command-and-setting.html#every-command">5.1 Every command</a></li><li><a href="05-every-command-and-setting.html#every-setting">5.2 Every setting</a></li></ol></li></ol>
+</nav>
+<main>
+<article>
+<div class="node"><span>Previous: <a href="02-setting-and-changing-the-spacing.html">Setting and changing the spacing</a></span><span>Next: <a href="04-settings-and-finding-out-why.html">Settings and finding out why nothing happens</a></span><span>Up: <a href="index.html">Contents</a></span></div>
+<h1 id="typing-and-where-a-second-space-goes">Typing and where a second space goes</h1>
+<p class="lead">What <code>garamond-mode</code> does as you type, and where it leaves the text alone.</p>
+<h2 id="the-mode"><span class="num">3.1</span> The mode</h2>
+<p><code>M-x garamond-mode</code> makes one space typed after a sentence's end two, or stops
+doing so. It acts only while the buffer's sentences are two spaces apart. The
+mode line says <code>2S</code> then. While they are one apart it says <code>1S</code>, and the mode
+waits. It also acts only in prose, and never after an abbreviation or a list
+item's number. A run of more spaces typed is made two.</p>
+<p>A count turns it on when it is positive and off when it is zero or less. It is
+turned on by itself in a file that says its spacing, and by
+<code>garamond-set-spacing</code> and <code>garamond-adjust-spacing</code>.</p>
+<p><code>M-x garamond-follow-declarations-mode</code> turns that starting by itself on or
+off, for files opened after it. Its setting, <code>*garamond-follow-declarations*</code>,
+is on when the package is loaded.</p>
+<div class="tablewrap"><table>
+<thead>
+<tr><th>Modal</th><th>Non-modal</th><th>Command</th><th>What it does</th></tr>
+</thead>
+<tbody>
+<tr><td>none</td><td><kbd>M-x garamond-mode</kbd></td><td><code>garamond-mode</code></td><td>Make one space typed after a sentence's end two in the current buffer, or stop.</td></tr>
+<tr><td>none</td><td><kbd>M-x garamond-follow-declarations-mode</kbd></td><td><code>garamond-follow-declarations-mode</code></td><td>Have a file that says how far apart its sentences are switch M-x garamond-mode on as it is opened, or stop (<strong>GARAMOND-FOLLOW-DECLARATIONS</strong>, on as the package is loaded).</td></tr>
+</tbody></table></div>
+<h2 id="where-a-second-space-goes"><span class="num">3.2</span> Where a second space goes</h2>
+<p>Only where prose is written:</p>
+<ul>
+<li>in a text mode (Org, Markdown, plain text and the rest), never in code,
+  tables, links, maths or a block's contents. Org's parse, or the language's
+  syntax tree, tells which is which;</li>
+<li>in any other language, only in its comments.</li>
+</ul>
+<p>Where a language has a syntax tree that is not ready yet, nothing is doubled.</p>
+<h2 id="abbreviations"><span class="num">3.3</span> Abbreviations</h2>
+<p>A word whose full stop shortens it (for example Dr. or Sept.) ends no sentence.
+The abbreviations are Tuatara's own, the ones its sentence commands and filling
+pass over. Add your own with <code>*extra-sentence-abbreviations*</code> and take any of
+Tuatara's out with <code>*removed-sentence-abbreviations*</code>, both in the init file.
+Chapter 2 of Tuatara's manual covers the sentence commands.</p>
+<h2 id="what-a-sentences-end-is"><span class="num">3.4</span> What a sentence's end is</h2>
+<p>A letter, then <code>.</code>, <code>?</code>, <code>!</code>, <code>…</code> or <code>‽</code>, then any closing quotes or brackets.
+A list item's number (1. or 10.) ends no sentence, because no letter comes
+before its full stop.</p>
+<div class="node end"><span>Previous: <a href="02-setting-and-changing-the-spacing.html">Setting and changing the spacing</a></span><span>Next: <a href="04-settings-and-finding-out-why.html">Settings and finding out why nothing happens</a></span><span>Up: <a href="index.html">Contents</a></span></div>
+</article>
+</main>
+</div>
+</body>
+</html>

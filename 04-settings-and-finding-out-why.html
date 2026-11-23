@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src  'self'; img-src 'self' file:; script-src 'self'; base-uri 'none'; form-action 'none'">
+<title>Settings and finding out why nothing happens &ndash; garamond Manual</title>
+<link rel="icon" href="tuatara.png">
+<link rel="stylesheet" href="manual.css">
+<script src="manual.js" defer></script>
+</head>
+<body>
+<div class="site">
+<nav class="toc" id="contents" aria-label="Contents">
+<strong>garamond Manual</strong>
+<small>for Tuatara 0.90.25 and later</small>
+<p class="tools"><a href="all.html">All on one page</a>
+<button type="button" class="theme" hidden>Dark</button></p>
+<input type="search" placeholder="Search the manual" aria-label="Search the manual">
+<ol class="chapters"><li id="nav-index"><a href="index.html">0 Contents</a></li><li id="nav-01-what-garamond-is"><a href="01-what-garamond-is.html">1 What garamond is</a><ol><li><a href="01-what-garamond-is.html#seeing-that-it-works">1.1 Seeing that it works</a></li><li><a href="01-what-garamond-is.html#what-this-manual-covers">1.2 What this manual covers</a></li></ol></li><li id="nav-02-setting-and-changing-the-spacing"><a href="02-setting-and-changing-the-spacing.html">2 Setting and changing the spacing</a><ol><li><a href="02-setting-and-changing-the-spacing.html#saying-it">2.1 Saying it</a></li><li><a href="02-setting-and-changing-the-spacing.html#making-the-text-match">2.2 Making the text match</a></li><li><a href="02-setting-and-changing-the-spacing.html#in-the-file">2.3 In the file</a></li></ol></li><li id="nav-03-typing-and-where-a-second-space-goes"><a href="03-typing-and-where-a-second-space-goes.html">3 Typing and where a second space goes</a><ol><li><a href="03-typing-and-where-a-second-space-goes.html#the-mode">3.1 The mode</a></li><li><a href="03-typing-and-where-a-second-space-goes.html#where-a-second-space-goes">3.2 Where a second space goes</a></li><li><a href="03-typing-and-where-a-second-space-goes.html#abbreviations">3.3 Abbreviations</a></li><li><a href="03-typing-and-where-a-second-space-goes.html#what-a-sentences-end-is">3.4 What a sentence's end is</a></li></ol></li><li id="nav-04-settings-and-finding-out-why" class="here"><a class="here" href="04-settings-and-finding-out-why.html">4 Settings and finding out why nothing happens</a><ol><li><a href="04-settings-and-finding-out-why.html#the-settings">4.1 The settings</a></li><li><a href="04-settings-and-finding-out-why.html#finding-out-why">4.2 Finding out why</a></li></ol></li><li id="nav-05-every-command-and-setting"><a href="05-every-command-and-setting.html">5 Every command and setting</a><ol><li><a href="05-every-command-and-setting.html#every-command">5.1 Every command</a></li><li><a href="05-every-command-and-setting.html#every-setting">5.2 Every setting</a></li></ol></li></ol>
+</nav>
+<main>
+<article>
+<div class="node"><span>Previous: <a href="03-typing-and-where-a-second-space-goes.html">Typing and where a second space goes</a></span><span>Next: <a href="05-every-command-and-setting.html">Every command and setting</a></span><span>Up: <a href="index.html">Contents</a></span></div>
+<h1 id="settings-and-finding-out-why-nothing-happens">Settings and finding out why nothing happens</h1>
+<p class="lead">The settings, and the command that says what garamond does in a buffer.</p>
+<h2 id="the-settings"><span class="num">4.1</span> The settings</h2>
+<p>Set them in the package's <code>:config</code> in your init file:</p>
+<pre class="ex"><code class="language-lisp">(load-package &quot;garamond&quot;
+              :source &quot;https://github.com/Tuatara-Editor/tuatara-garamond&quot;
+              :config
+              (setf *garamond-mode-line* nil))
+</code></pre>
+<div class="tablewrap"><table>
+<thead>
+<tr><th>Setting</th><th>Default</th><th>Values</th><th>What it changes</th></tr>
+</thead>
+<tbody>
+<tr><td><code>*garamond-double-space-on-typing*</code></td><td><code>t</code></td><td>t, nil</td><td>Whether one space typed after a sentence's end becomes two.</td></tr>
+<tr><td><code>*garamond-persist*</code></td><td><code>t</code></td><td>t, nil</td><td>Whether M-x garamond-set-spacing and M-x garamond-adjust-spacing ask to write the spacing in the file.</td></tr>
+<tr><td><code>*garamond-follow-declarations*</code></td><td><code>t</code></td><td>t, nil</td><td>Whether a file that says how far apart its sentences are has M-x garamond-mode on as it is opened.</td></tr>
+<tr><td><code>*garamond-mode-line*</code></td><td><code>t</code></td><td>t, nil</td><td>Whether the mode line says a buffer's spacing while M-x garamond-mode is on in it.</td></tr>
+<tr><td><code>*garamond-unsuitable-modes*</code></td><td><code>(special-mode)</code></td><td>a list, each a mode's name</td><td>The major modes M-x garamond-mode never runs in.</td></tr>
+</tbody></table></div>
+<p><code>special-mode</code> covers the lists, help and terminals Tuatara makes, where nobody
+writes prose. Garamond will not turn on there and says so.</p>
+<h2 id="finding-out-why"><span class="num">4.2</span> Finding out why</h2>
+<p><code>M-x garamond-doctor</code> shows in a <code>*Help*</code> buffer what garamond does in the
+current buffer and why. It lists:</p>
+<ul>
+<li>the buffer's major mode, and whether its file says its spacing;</li>
+<li>the spaces between sentences in force, and where they come from when the file
+  does not say;</li>
+<li>whether <code>garamond-mode</code> is on, and why it will not run when that is so;</li>
+<li>where a second space goes, and what the mode line says;</li>
+<li>the settings, and how many abbreviations are in force (Tuatara's, those
+  removed and yours);</li>
+<li>the likeliest reason for what you see, in a sentence or two.</li>
+</ul>
+<p>Press <code>r</code> there to look again after a change.</p>
+<div class="tablewrap"><table>
+<thead>
+<tr><th>Modal</th><th>Non-modal</th><th>Command</th><th>What it does</th></tr>
+</thead>
+<tbody>
+<tr><td>none</td><td><kbd>M-x garamond-doctor</kbd></td><td><code>garamond-doctor</code></td><td>Show in <strong>Help</strong> what Garamond does in the current buffer and why: whether its file says its spacing, the spacing in force, whether M-x garamond-mode is on and where a second space goes, the settings, and the likeliest reason for what is seen.</td></tr>
+</tbody></table></div>
+<div class="node end"><span>Previous: <a href="03-typing-and-where-a-second-space-goes.html">Typing and where a second space goes</a></span><span>Next: <a href="05-every-command-and-setting.html">Every command and setting</a></span><span>Up: <a href="index.html">Contents</a></span></div>
+</article>
+</main>
+</div>
+</body>
+</html>

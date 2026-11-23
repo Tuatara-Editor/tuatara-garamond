@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src  'self'; img-src 'self' file:; script-src 'self'; base-uri 'none'; form-action 'none'">
+<title>garamond Manual, all chapters</title>
+<link rel="icon" href="tuatara.png">
+<link rel="stylesheet" href="manual.css">
+<script src="manual.js" defer></script>
+</head>
+<body>
+<div class="site">
+<nav class="toc" id="contents" aria-label="Contents">
+<strong>garamond Manual</strong>
+<small>for Tuatara 0.90.25 and later</small>
+<p class="tools"><a href="index.html">By chapter</a>
+<button type="button" class="theme" hidden>Dark</button></p>
+<input type="search" placeholder="Search the manual" aria-label="Search the manual">
+<ol class="chapters"><li id="nav-index"><a href="index.html">0 Contents</a></li><li id="nav-01-what-garamond-is"><a href="#01-what-garamond-is">1 What garamond is</a><ol><li><a href="#01-what-garamond-is--seeing-that-it-works">1.1 Seeing that it works</a></li><li><a href="#01-what-garamond-is--what-this-manual-covers">1.2 What this manual covers</a></li></ol></li><li id="nav-02-setting-and-changing-the-spacing"><a href="#02-setting-and-changing-the-spacing">2 Setting and changing the spacing</a><ol><li><a href="#02-setting-and-changing-the-spacing--saying-it">2.1 Saying it</a></li><li><a href="#02-setting-and-changing-the-spacing--making-the-text-match">2.2 Making the text match</a></li><li><a href="#02-setting-and-changing-the-spacing--in-the-file">2.3 In the file</a></li></ol></li><li id="nav-03-typing-and-where-a-second-space-goes"><a href="#03-typing-and-where-a-second-space-goes">3 Typing and where a second space goes</a><ol><li><a href="#03-typing-and-where-a-second-space-goes--the-mode">3.1 The mode</a></li><li><a href="#03-typing-and-where-a-second-space-goes--where-a-second-space-goes">3.2 Where a second space goes</a></li><li><a href="#03-typing-and-where-a-second-space-goes--abbreviations">3.3 Abbreviations</a></li><li><a href="#03-typing-and-where-a-second-space-goes--what-a-sentences-end-is">3.4 What a sentence's end is</a></li></ol></li><li id="nav-04-settings-and-finding-out-why"><a href="#04-settings-and-finding-out-why">4 Settings and finding out why nothing happens</a><ol><li><a href="#04-settings-and-finding-out-why--the-settings">4.1 The settings</a></li><li><a href="#04-settings-and-finding-out-why--finding-out-why">4.2 Finding out why</a></li></ol></li><li id="nav-05-every-command-and-setting"><a href="#05-every-command-and-setting">5 Every command and setting</a><ol><li><a href="#05-every-command-and-setting--every-command">5.1 Every command</a></li><li><a href="#05-every-command-and-setting--every-setting">5.2 Every setting</a></li></ol></li></ol>
+</nav>
+<main>
+<article>
+<h1>garamond Manual</h1>
+<p class="lead">for Tuatara 0.90.25 and later, every chapter on one page</p>
+<p>This manual is written with modal editing on, first and foremost. Where a command also has a key that works with modal editing off, it is given as well, as the non-modal key.</p>
+<section class="chapter" id="01-what-garamond-is">
+<h1 id="01-what-garamond-is--what-garamond-is">What garamond is</h1>
+<p class="lead">A package that keeps one space or two after a full stop, as the document
+itself says.</p>
+<p>How far apart sentences are is a property of a document, not of the person who
+edits it. So garamond reads it from the document, from its own <code>Local
+Variables:</code> block:</p>
+<pre class="ex"># Local Variables:
+# sentence-end-double-space: t
+# End:
+</pre>
+<p><code>t</code> means two spaces after a sentence's end, <code>nil</code> means one. A file that says
+nothing is left alone. Where it does say, typing, filling and the sentence
+commands follow the spacing the file asks for.</p>
+<p>It is a package, not part of the editor. It is made from the Emacs package of
+the same name, by the same author.</p>
+<h2 id="01-what-garamond-is--seeing-that-it-works"><span class="num">1.1</span> Seeing that it works</h2>
+<p>Open a file with a <code>Local Variables:</code> block that says
+<code>sentence-end-double-space: t</code>. The mode line shows <code>2S</code>. <code>1S</code> means the file
+asks for one space between sentences.</p>
+<h2 id="01-what-garamond-is--what-this-manual-covers"><span class="num">1.2</span> What this manual covers</h2>
+<ul>
+<li>Chapter 2 says how to tell a buffer its spacing, and how to change a whole
+  text to match.</li>
+<li>Chapter 3 says what typing does and where a second space goes.</li>
+<li>Chapter 4 lists the settings and describes the command that says why
+  nothing happens.</li>
+<li>Chapter 5 lists every command and setting.</li>
+</ul>
+</section>
+<section class="chapter" id="02-setting-and-changing-the-spacing">
+<h1 id="02-setting-and-changing-the-spacing--setting-and-changing-the-spacing">Setting and changing the spacing</h1>
+<p class="lead">Say how far apart a buffer's sentences are, and make the text match.</p>
+<h2 id="02-setting-and-changing-the-spacing--saying-it"><span class="num">2.1</span> Saying it</h2>
+<p><code>M-x garamond-set-spacing</code> says how many spaces, 1 or 2, are between the
+buffer's sentences. It changes none of the text. Filling, the sentence
+commands and typing follow the number from then on. A count gives it, as in
+<code>C-u 2 M-x garamond-set-spacing</code>. Without a count, the command asks, and offers
+the buffer's own spacing.</p>
+<p>When the buffer's file does not say its spacing yet, the command asks whether
+to write it in the file's <code>Local Variables:</code> block. The file keeps it from
+then on. A file that says already is kept up to date without asking. The buffer
+is left modified and not saved.</p>
+<p>The command also turns <code>garamond-mode</code> on, unless the buffer is one the mode
+never runs in (chapter 4).</p>
+<div class="tablewrap"><table>
+<thead>
+<tr><th>Modal</th><th>Non-modal</th><th>Command</th><th>What it does</th></tr>
+</thead>
+<tbody>
+<tr><td>none</td><td><kbd>M-x garamond-set-spacing</kbd></td><td><code>garamond-set-spacing</code></td><td>Say how many spaces, 1 or 2, are between the current buffer's sentences, changing none of its text: filling, the sentence commands and typing (M-x garamond-mode, switched on) follow it.</td></tr>
+</tbody></table></div>
+<h2 id="02-setting-and-changing-the-spacing--making-the-text-match"><span class="num">2.2</span> Making the text match</h2>
+<p><code>M-x garamond-adjust-spacing</code> does the same and then changes the text. Every gap
+after a sentence's end in the selection, or in the whole buffer when there is no
+selection, becomes 1 or 2 spaces, as one change. A sentence's end is <code>.</code>, <code>?</code>,
+<code>!</code>, <code>…</code> or <code>‽</code> after a letter, with any closing quotes or brackets, and more
+text on the same line.</p>
+<p>The gap after an abbreviation (for example Dr.) is made one space, as filling
+leaves it. A list item's number, line breaks, indentation and anything that is
+not prose are left as they are (chapter 3). A count gives the spacing and
+otherwise it is asked. Whether to write the spacing in the file is asked only
+when the whole buffer is changed.</p>
+<p>When it has finished, the command says how many sentence breaks it made, and
+how many gaps after abbreviations it made one space.</p>
+<div class="tablewrap"><table>
+<thead>
+<tr><th>Modal</th><th>Non-modal</th><th>Command</th><th>What it does</th></tr>
+</thead>
+<tbody>
+<tr><td>none</td><td><kbd>M-x garamond-adjust-spacing</kbd></td><td><code>garamond-adjust-spacing</code></td><td>Make every run of spaces after a sentence's end in the selection, or the whole buffer without one, 1 or 2 spaces, as one change, then say the buffer uses that spacing as M-x garamond-set-spacing does.</td></tr>
+</tbody></table></div>
+<h2 id="02-setting-and-changing-the-spacing--in-the-file"><span class="num">2.3</span> In the file</h2>
+<p>A file can also turn the mode on by name, in its own settings:</p>
+<pre class="ex">-*- mode: org; mode: garamond -*-
+</pre>
+<p>The mode is not turned on if the buffer is one it never runs in. A file whose
+own settings are off (the editor's <code>*file-local-variables*</code> setting) is never
+written to by these commands. They say so instead.</p>
+</section>
+<section class="chapter" id="03-typing-and-where-a-second-space-goes">
+<h1 id="03-typing-and-where-a-second-space-goes--typing-and-where-a-second-space-goes">Typing and where a second space goes</h1>
+<p class="lead">What <code>garamond-mode</code> does as you type, and where it leaves the text alone.</p>
+<h2 id="03-typing-and-where-a-second-space-goes--the-mode"><span class="num">3.1</span> The mode</h2>
+<p><code>M-x garamond-mode</code> makes one space typed after a sentence's end two, or stops
+doing so. It acts only while the buffer's sentences are two spaces apart. The
+mode line says <code>2S</code> then. While they are one apart it says <code>1S</code>, and the mode
+waits. It also acts only in prose, and never after an abbreviation or a list
+item's number. A run of more spaces typed is made two.</p>
+<p>A count turns it on when it is positive and off when it is zero or less. It is
+turned on by itself in a file that says its spacing, and by
+<code>garamond-set-spacing</code> and <code>garamond-adjust-spacing</code>.</p>
+<p><code>M-x garamond-follow-declarations-mode</code> turns that starting by itself on or
+off, for files opened after it. Its setting, <code>*garamond-follow-declarations*</code>,
+is on when the package is loaded.</p>
+<div class="tablewrap"><table>
+<thead>
+<tr><th>Modal</th><th>Non-modal</th><th>Command</th><th>What it does</th></tr>
+</thead>
+<tbody>
+<tr><td>none</td><td><kbd>M-x garamond-mode</kbd></td><td><code>garamond-mode</code></td><td>Make one space typed after a sentence's end two in the current buffer, or stop.</td></tr>
+<tr><td>none</td><td><kbd>M-x garamond-follow-declarations-mode</kbd></td><td><code>garamond-follow-declarations-mode</code></td><td>Have a file that says how far apart its sentences are switch M-x garamond-mode on as it is opened, or stop (<strong>GARAMOND-FOLLOW-DECLARATIONS</strong>, on as the package is loaded).</td></tr>
+</tbody></table></div>
+<h2 id="03-typing-and-where-a-second-space-goes--where-a-second-space-goes"><span class="num">3.2</span> Where a second space goes</h2>
+<p>Only where prose is written:</p>
+<ul>
+<li>in a text mode (Org, Markdown, plain text and the rest), never in code,
+  tables, links, maths or a block's contents. Org's parse, or the language's
+  syntax tree, tells which is which;</li>
+<li>in any other language, only in its comments.</li>
+</ul>
+<p>Where a language has a syntax tree that is not ready yet, nothing is doubled.</p>
+<h2 id="03-typing-and-where-a-second-space-goes--abbreviations"><span class="num">3.3</span> Abbreviations</h2>
+<p>A word whose full stop shortens it (for example Dr. or Sept.) ends no sentence.
+The abbreviations are Tuatara's own, the ones its sentence commands and filling
+pass over. Add your own with <code>*extra-sentence-abbreviations*</code> and take any of
+Tuatara's out with <code>*removed-sentence-abbreviations*</code>, both in the init file.
+Chapter 2 of Tuatara's manual covers the sentence commands.</p>
+<h2 id="03-typing-and-where-a-second-space-goes--what-a-sentences-end-is"><span class="num">3.4</span> What a sentence's end is</h2>
+<p>A letter, then <code>.</code>, <code>?</code>, <code>!</code>, <code>…</code> or <code>‽</code>, then any closing quotes or brackets.
+A list item's number (1. or 10.) ends no sentence, because no letter comes
+before its full stop.</p>
+</section>
+<section class="chapter" id="04-settings-and-finding-out-why">
+<h1 id="04-settings-and-finding-out-why--settings-and-finding-out-why-nothing-happens">Settings and finding out why nothing happens</h1>
+<p class="lead">The settings, and the command that says what garamond does in a buffer.</p>
+<h2 id="04-settings-and-finding-out-why--the-settings"><span class="num">4.1</span> The settings</h2>
+<p>Set them in the package's <code>:config</code> in your init file:</p>
+<pre class="ex"><code class="language-lisp">(load-package &quot;garamond&quot;
+              :source &quot;https://github.com/Tuatara-Editor/tuatara-garamond&quot;
+              :config
+              (setf *garamond-mode-line* nil))
+</code></pre>
+<div class="tablewrap"><table>
+<thead>
+<tr><th>Setting</th><th>Default</th><th>Values</th><th>What it changes</th></tr>
+</thead>
+<tbody>
+<tr><td><code>*garamond-double-space-on-typing*</code></td><td><code>t</code></td><td>t, nil</td><td>Whether one space typed after a sentence's end becomes two.</td></tr>
+<tr><td><code>*garamond-persist*</code></td><td><code>t</code></td><td>t, nil</td><td>Whether M-x garamond-set-spacing and M-x garamond-adjust-spacing ask to write the spacing in the file.</td></tr>
+<tr><td><code>*garamond-follow-declarations*</code></td><td><code>t</code></td><td>t, nil</td><td>Whether a file that says how far apart its sentences are has M-x garamond-mode on as it is opened.</td></tr>
+<tr><td><code>*garamond-mode-line*</code></td><td><code>t</code></td><td>t, nil</td><td>Whether the mode line says a buffer's spacing while M-x garamond-mode is on in it.</td></tr>
+<tr><td><code>*garamond-unsuitable-modes*</code></td><td><code>(special-mode)</code></td><td>a list, each a mode's name</td><td>The major modes M-x garamond-mode never runs in.</td></tr>
+</tbody></table></div>
+<p><code>special-mode</code> covers the lists, help and terminals Tuatara makes, where nobody
+writes prose. Garamond will not turn on there and says so.</p>
+<h2 id="04-settings-and-finding-out-why--finding-out-why"><span class="num">4.2</span> Finding out why</h2>
+<p><code>M-x garamond-doctor</code> shows in a <code>*Help*</code> buffer what garamond does in the
+current buffer and why. It lists:</p>
+<ul>
+<li>the buffer's major mode, and whether its file says its spacing;</li>
+<li>the spaces between sentences in force, and where they come from when the file
+  does not say;</li>
+<li>whether <code>garamond-mode</code> is on, and why it will not run when that is so;</li>
+<li>where a second space goes, and what the mode line says;</li>
+<li>the settings, and how many abbreviations are in force (Tuatara's, those
+  removed and yours);</li>
+<li>the likeliest reason for what you see, in a sentence or two.</li>
+</ul>
+<p>Press <code>r</code> there to look again after a change.</p>
+<div class="tablewrap"><table>
+<thead>
+<tr><th>Modal</th><th>Non-modal</th><th>Command</th><th>What it does</th></tr>
+</thead>
+<tbody>
+<tr><td>none</td><td><kbd>M-x garamond-doctor</kbd></td><td><code>garamond-doctor</code></td><td>Show in <strong>Help</strong> what Garamond does in the current buffer and why: whether its file says its spacing, the spacing in force, whether M-x garamond-mode is on and where a second space goes, the settings, and the likeliest reason for what is seen.</td></tr>
+</tbody></table></div>
+</section>
+<section class="chapter" id="05-every-command-and-setting">
+<h1 id="05-every-command-and-setting--every-command-and-setting">Every command and setting</h1>
+<p class="lead">Each command and setting of garamond, to look one up by name.</p>
+<p>The tables are made from the program each time this manual is made, so they
+never list a command or setting that garamond does not have. The first table
+has four columns. The first two are keys: the modal keys, which work only with
+modal editing on, and the non-modal keys, which work with it off too. A command
+with no key says <kbd>M-x</kbd> and its name in the second column, because you can only
+run it by its name. The third column is the name of the command and the fourth
+says what it does.</p>
+<p>To run a command by its name, press <kbd>M-x</kbd>, type a few letters of the name and
+press <kbd>RET</kbd>. To find a command from within the editor, press <kbd>C-h f</kbd>. To find
+the command that a key runs, press <kbd>C-h k</kbd> and then the key. The editor's own
+settings and commands are in chapters 21 and 22 of its manual.</p>
+<h2 id="05-every-command-and-setting--every-command"><span class="num">5.1</span> Every command</h2>
+<div class="tablewrap"><table>
+<thead>
+<tr><th>Modal</th><th>Non-modal</th><th>Command</th><th>What it does</th></tr>
+</thead>
+<tbody>
+<tr><td>none</td><td><kbd>M-x garamond-adjust-spacing</kbd></td><td><code>garamond-adjust-spacing</code></td><td>Make every run of spaces after a sentence's end in the selection, or the whole buffer without one, 1 or 2 spaces, as one change, then say the buffer uses that spacing as M-x garamond-set-spacing does.</td></tr>
+<tr><td>none</td><td><kbd>M-x garamond-doctor</kbd></td><td><code>garamond-doctor</code></td><td>Show in <strong>Help</strong> what Garamond does in the current buffer and why: whether its file says its spacing, the spacing in force, whether M-x garamond-mode is on and where a second space goes, the settings, and the likeliest reason for what is seen.</td></tr>
+<tr><td>none</td><td><kbd>M-x garamond-follow-declarations-mode</kbd></td><td><code>garamond-follow-declarations-mode</code></td><td>Have a file that says how far apart its sentences are switch M-x garamond-mode on as it is opened, or stop (<strong>GARAMOND-FOLLOW-DECLARATIONS</strong>, on as the package is loaded).</td></tr>
+<tr><td>none</td><td><kbd>M-x garamond-mode</kbd></td><td><code>garamond-mode</code></td><td>Make one space typed after a sentence's end two in the current buffer, or stop.</td></tr>
+<tr><td>none</td><td><kbd>M-x garamond-set-spacing</kbd></td><td><code>garamond-set-spacing</code></td><td>Say how many spaces, 1 or 2, are between the current buffer's sentences, changing none of its text: filling, the sentence commands and typing (M-x garamond-mode, switched on) follow it.</td></tr>
+</tbody></table></div>
+<h2 id="05-every-command-and-setting--every-setting"><span class="num">5.2</span> Every setting</h2>
+<div class="tablewrap"><table>
+<thead>
+<tr><th>Setting</th><th>Default</th><th>Values</th><th>What it changes</th></tr>
+</thead>
+<tbody>
+<tr><td><code>*garamond-double-space-on-typing*</code></td><td><code>t</code></td><td>t, nil</td><td>Whether one space typed after a sentence's end becomes two.</td></tr>
+<tr><td><code>*garamond-follow-declarations*</code></td><td><code>t</code></td><td>t, nil</td><td>Whether a file that says how far apart its sentences are has M-x garamond-mode on as it is opened.</td></tr>
+<tr><td><code>*garamond-mode-line*</code></td><td><code>t</code></td><td>t, nil</td><td>Whether the mode line says a buffer's spacing while M-x garamond-mode is on in it.</td></tr>
+<tr><td><code>*garamond-persist*</code></td><td><code>t</code></td><td>t, nil</td><td>Whether M-x garamond-set-spacing and M-x garamond-adjust-spacing ask to write the spacing in the file.</td></tr>
+<tr><td><code>*garamond-unsuitable-modes*</code></td><td><code>(special-mode)</code></td><td>a list, each a mode's name</td><td>The major modes M-x garamond-mode never runs in.</td></tr>
+</tbody></table></div>
+</section>
+</article>
+</main>
+</div>
+</body>
+</html>

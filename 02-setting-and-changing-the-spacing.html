@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src  'self'; img-src 'self' file:; script-src 'self'; base-uri 'none'; form-action 'none'">
+<title>Setting and changing the spacing &ndash; garamond Manual</title>
+<link rel="icon" href="tuatara.png">
+<link rel="stylesheet" href="manual.css">
+<script src="manual.js" defer></script>
+</head>
+<body>
+<div class="site">
+<nav class="toc" id="contents" aria-label="Contents">
+<strong>garamond Manual</strong>
+<small>for Tuatara 0.90.25 and later</small>
+<p class="tools"><a href="all.html">All on one page</a>
+<button type="button" class="theme" hidden>Dark</button></p>
+<input type="search" placeholder="Search the manual" aria-label="Search the manual">
+<ol class="chapters"><li id="nav-index"><a href="index.html">0 Contents</a></li><li id="nav-01-what-garamond-is"><a href="01-what-garamond-is.html">1 What garamond is</a><ol><li><a href="01-what-garamond-is.html#seeing-that-it-works">1.1 Seeing that it works</a></li><li><a href="01-what-garamond-is.html#what-this-manual-covers">1.2 What this manual covers</a></li></ol></li><li id="nav-02-setting-and-changing-the-spacing" class="here"><a class="here" href="02-setting-and-changing-the-spacing.html">2 Setting and changing the spacing</a><ol><li><a href="02-setting-and-changing-the-spacing.html#saying-it">2.1 Saying it</a></li><li><a href="02-setting-and-changing-the-spacing.html#making-the-text-match">2.2 Making the text match</a></li><li><a href="02-setting-and-changing-the-spacing.html#in-the-file">2.3 In the file</a></li></ol></li><li id="nav-03-typing-and-where-a-second-space-goes"><a href="03-typing-and-where-a-second-space-goes.html">3 Typing and where a second space goes</a><ol><li><a href="03-typing-and-where-a-second-space-goes.html#the-mode">3.1 The mode</a></li><li><a href="03-typing-and-where-a-second-space-goes.html#where-a-second-space-goes">3.2 Where a second space goes</a></li><li><a href="03-typing-and-where-a-second-space-goes.html#abbreviations">3.3 Abbreviations</a></li><li><a href="03-typing-and-where-a-second-space-goes.html#what-a-sentences-end-is">3.4 What a sentence's end is</a></li></ol></li><li id="nav-04-settings-and-finding-out-why"><a href="04-settings-and-finding-out-why.html">4 Settings and finding out why nothing happens</a><ol><li><a href="04-settings-and-finding-out-why.html#the-settings">4.1 The settings</a></li><li><a href="04-settings-and-finding-out-why.html#finding-out-why">4.2 Finding out why</a></li></ol></li><li id="nav-05-every-command-and-setting"><a href="05-every-command-and-setting.html">5 Every command and setting</a><ol><li><a href="05-every-command-and-setting.html#every-command">5.1 Every command</a></li><li><a href="05-every-command-and-setting.html#every-setting">5.2 Every setting</a></li></ol></li></ol>
+</nav>
+<main>
+<article>
+<div class="node"><span>Previous: <a href="01-what-garamond-is.html">What garamond is</a></span><span>Next: <a href="03-typing-and-where-a-second-space-goes.html">Typing and where a second space goes</a></span><span>Up: <a href="index.html">Contents</a></span></div>
+<h1 id="setting-and-changing-the-spacing">Setting and changing the spacing</h1>
+<p class="lead">Say how far apart a buffer's sentences are, and make the text match.</p>
+<h2 id="saying-it"><span class="num">2.1</span> Saying it</h2>
+<p><code>M-x garamond-set-spacing</code> says how many spaces, 1 or 2, are between the
+buffer's sentences. It changes none of the text. Filling, the sentence
+commands and typing follow the number from then on. A count gives it, as in
+<code>C-u 2 M-x garamond-set-spacing</code>. Without a count, the command asks, and offers
+the buffer's own spacing.</p>
+<p>When the buffer's file does not say its spacing yet, the command asks whether
+to write it in the file's <code>Local Variables:</code> block. The file keeps it from
+then on. A file that says already is kept up to date without asking. The buffer
+is left modified and not saved.</p>
+<p>The command also turns <code>garamond-mode</code> on, unless the buffer is one the mode
+never runs in (chapter 4).</p>
+<div class="tablewrap"><table>
+<thead>
+<tr><th>Modal</th><th>Non-modal</th><th>Command</th><th>What it does</th></tr>
+</thead>
+<tbody>
+<tr><td>none</td><td><kbd>M-x garamond-set-spacing</kbd></td><td><code>garamond-set-spacing</code></td><td>Say how many spaces, 1 or 2, are between the current buffer's sentences, changing none of its text: filling, the sentence commands and typing (M-x garamond-mode, switched on) follow it.</td></tr>
+</tbody></table></div>
+<h2 id="making-the-text-match"><span class="num">2.2</span> Making the text match</h2>
+<p><code>M-x garamond-adjust-spacing</code> does the same and then changes the text. Every gap
+after a sentence's end in the selection, or in the whole buffer when there is no
+selection, becomes 1 or 2 spaces, as one change. A sentence's end is <code>.</code>, <code>?</code>,
+<code>!</code>, <code>…</code> or <code>‽</code> after a letter, with any closing quotes or brackets, and more
+text on the same line.</p>
+<p>The gap after an abbreviation (for example Dr.) is made one space, as filling
+leaves it. A list item's number, line breaks, indentation and anything that is
+not prose are left as they are (chapter 3). A count gives the spacing and
+otherwise it is asked. Whether to write the spacing in the file is asked only
+when the whole buffer is changed.</p>
+<p>When it has finished, the command says how many sentence breaks it made, and
+how many gaps after abbreviations it made one space.</p>
+<div class="tablewrap"><table>
+<thead>
+<tr><th>Modal</th><th>Non-modal</th><th>Command</th><th>What it does</th></tr>
+</thead>
+<tbody>
+<tr><td>none</td><td><kbd>M-x garamond-adjust-spacing</kbd></td><td><code>garamond-adjust-spacing</code></td><td>Make every run of spaces after a sentence's end in the selection, or the whole buffer without one, 1 or 2 spaces, as one change, then say the buffer uses that spacing as M-x garamond-set-spacing does.</td></tr>
+</tbody></table></div>
+<h2 id="in-the-file"><span class="num">2.3</span> In the file</h2>
+<p>A file can also turn the mode on by name, in its own settings:</p>
+<pre class="ex">-*- mode: org; mode: garamond -*-
+</pre>
+<p>The mode is not turned on if the buffer is one it never runs in. A file whose
+own settings are off (the editor's <code>*file-local-variables*</code> setting) is never
+written to by these commands. They say so instead.</p>
+<div class="node end"><span>Previous: <a href="01-what-garamond-is.html">What garamond is</a></span><span>Next: <a href="03-typing-and-where-a-second-space-goes.html">Typing and where a second space goes</a></span><span>Up: <a href="index.html">Contents</a></span></div>
+</article>
+</main>
+</div>
+</body>
+</html>

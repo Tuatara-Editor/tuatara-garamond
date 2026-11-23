@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src  'self'; img-src 'self' file:; script-src 'self'; base-uri 'none'; form-action 'none'">
+<title>What garamond is &ndash; garamond Manual</title>
+<link rel="icon" href="tuatara.png">
+<link rel="stylesheet" href="manual.css">
+<script src="manual.js" defer></script>
+</head>
+<body>
+<div class="site">
+<nav class="toc" id="contents" aria-label="Contents">
+<strong>garamond Manual</strong>
+<small>for Tuatara 0.90.25 and later</small>
+<p class="tools"><a href="all.html">All on one page</a>
+<button type="button" class="theme" hidden>Dark</button></p>
+<input type="search" placeholder="Search the manual" aria-label="Search the manual">
+<ol class="chapters"><li id="nav-index"><a href="index.html">0 Contents</a></li><li id="nav-01-what-garamond-is" class="here"><a class="here" href="01-what-garamond-is.html">1 What garamond is</a><ol><li><a href="01-what-garamond-is.html#seeing-that-it-works">1.1 Seeing that it works</a></li><li><a href="01-what-garamond-is.html#what-this-manual-covers">1.2 What this manual covers</a></li></ol></li><li id="nav-02-setting-and-changing-the-spacing"><a href="02-setting-and-changing-the-spacing.html">2 Setting and changing the spacing</a><ol><li><a href="02-setting-and-changing-the-spacing.html#saying-it">2.1 Saying it</a></li><li><a href="02-setting-and-changing-the-spacing.html#making-the-text-match">2.2 Making the text match</a></li><li><a href="02-setting-and-changing-the-spacing.html#in-the-file">2.3 In the file</a></li></ol></li><li id="nav-03-typing-and-where-a-second-space-goes"><a href="03-typing-and-where-a-second-space-goes.html">3 Typing and where a second space goes</a><ol><li><a href="03-typing-and-where-a-second-space-goes.html#the-mode">3.1 The mode</a></li><li><a href="03-typing-and-where-a-second-space-goes.html#where-a-second-space-goes">3.2 Where a second space goes</a></li><li><a href="03-typing-and-where-a-second-space-goes.html#abbreviations">3.3 Abbreviations</a></li><li><a href="03-typing-and-where-a-second-space-goes.html#what-a-sentences-end-is">3.4 What a sentence's end is</a></li></ol></li><li id="nav-04-settings-and-finding-out-why"><a href="04-settings-and-finding-out-why.html">4 Settings and finding out why nothing happens</a><ol><li><a href="04-settings-and-finding-out-why.html#the-settings">4.1 The settings</a></li><li><a href="04-settings-and-finding-out-why.html#finding-out-why">4.2 Finding out why</a></li></ol></li><li id="nav-05-every-command-and-setting"><a href="05-every-command-and-setting.html">5 Every command and setting</a><ol><li><a href="05-every-command-and-setting.html#every-command">5.1 Every command</a></li><li><a href="05-every-command-and-setting.html#every-setting">5.2 Every setting</a></li></ol></li></ol>
+</nav>
+<main>
+<article>
+<div class="node"><span>Next: <a href="02-setting-and-changing-the-spacing.html">Setting and changing the spacing</a></span><span>Up: <a href="index.html">Contents</a></span></div>
+<h1 id="what-garamond-is">What garamond is</h1>
+<p class="lead">A package that keeps one space or two after a full stop, as the document
+itself says.</p>
+<p>How far apart sentences are is a property of a document, not of the person who
+edits it. So garamond reads it from the document, from its own <code>Local
+Variables:</code> block:</p>
+<pre class="ex"># Local Variables:
+# sentence-end-double-space: t
+# End:
+</pre>
+<p><code>t</code> means two spaces after a sentence's end, <code>nil</code> means one. A file that says
+nothing is left alone. Where it does say, typing, filling and the sentence
+commands follow the spacing the file asks for.</p>
+<p>It is a package, not part of the editor. It is made from the Emacs package of
+the same name, by the same author.</p>
+<h2 id="seeing-that-it-works"><span class="num">1.1</span> Seeing that it works</h2>
+<p>Open a file with a <code>Local Variables:</code> block that says
+<code>sentence-end-double-space: t</code>. The mode line shows <code>2S</code>. <code>1S</code> means the file
+asks for one space between sentences.</p>
+<h2 id="what-this-manual-covers"><span class="num">1.2</span> What this manual covers</h2>
+<ul>
+<li>Chapter 2 says how to tell a buffer its spacing, and how to change a whole
+  text to match.</li>
+<li>Chapter 3 says what typing does and where a second space goes.</li>
+<li>Chapter 4 lists the settings and describes the command that says why
+  nothing happens.</li>
+<li>Chapter 5 lists every command and setting.</li>
+</ul>
+<div class="node end"><span>Next: <a href="02-setting-and-changing-the-spacing.html">Setting and changing the spacing</a></span><span>Up: <a href="index.html">Contents</a></span></div>
+</article>
+</main>
+</div>
+</body>
+</html>
