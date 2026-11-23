@@ -1,0 +1,40 @@
+#+title: Settings and finding out why nothing happens
+#+language: en
+
+* Settings and finding out why nothing happens
+
+The settings, and the command that says what garamond does in a buffer.
+
+** The settings
+
+Set them in the package's =:config= in your init file:
+
+#+begin_src lisp
+(load-package "garamond"
+              :source "https://github.com/Tuatara-Editor/tuatara-garamond"
+              :config
+              (setf *garamond-mode-line* nil))
+#+end_src
+
+#+table: settings *garamond-double-space-on-typing* *garamond-persist* *garamond-follow-declarations* *garamond-mode-line* *garamond-unsuitable-modes*
+
+=special-mode= covers the lists, help and terminals Tuatara makes, where nobody
+writes prose. Garamond will not turn on there and says so.
+
+** Finding out why
+
+=M-x garamond-doctor= shows in a =*Help*= buffer what garamond does in the
+current buffer and why. It lists:
+
+- the buffer's major mode, and whether its file says its spacing;
+- the spaces between sentences in force, and where they come from when the file
+  does not say;
+- whether =garamond-mode= is on, and why it will not run when that is so;
+- where a second space goes, and what the mode line says;
+- the settings, and how many abbreviations are in force (Tuatara's, those
+  removed and yours);
+- the likeliest reason for what you see, in a sentence or two.
+
+Press =r= there to look again after a change.
+
+#+table: commands garamond-doctor

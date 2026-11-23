@@ -1,0 +1,39 @@
+#+title: What garamond is
+#+language: en
+
+* What garamond is
+
+A package that keeps one space or two after a full stop, as the document
+itself says.
+
+How far apart sentences are is a property of a document, not of the person who
+edits it. So garamond reads it from the document, from its own =Local
+Variables:= block:
+
+#+begin_example
+# Local Variables:
+# sentence-end-double-space: t
+# End:
+#+end_example
+
+=t= means two spaces after a sentence's end, =nil= means one. A file that says
+nothing is left alone. Where it does say, typing, filling and the sentence
+commands follow the spacing the file asks for.
+
+It is a package, not part of the editor. It is made from the Emacs package of
+the same name, by the same author.
+
+** Seeing that it works
+
+Open a file with a =Local Variables:= block that says
+=sentence-end-double-space: t=. The mode line shows =2S=. =1S= means the file
+asks for one space between sentences.
+
+** What this manual covers
+
+- Chapter 2 says how to tell a buffer its spacing, and how to change a whole
+  text to match.
+- Chapter 3 says what typing does and where a second space goes.
+- Chapter 4 lists the settings and describes the command that says why
+  nothing happens.
+- Chapter 5 lists every command and setting.

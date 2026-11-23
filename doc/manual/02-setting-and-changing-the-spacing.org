@@ -1,0 +1,55 @@
+#+title: Setting and changing the spacing
+#+language: en
+
+* Setting and changing the spacing
+
+Say how far apart a buffer's sentences are, and make the text match.
+
+** Saying it
+
+=M-x garamond-set-spacing= says how many spaces, 1 or 2, are between the
+buffer's sentences. It changes none of the text. Filling, the sentence
+commands and typing follow the number from then on. A count gives it, as in
+=C-u 2 M-x garamond-set-spacing=. Without a count, the command asks, and offers
+the buffer's own spacing.
+
+When the buffer's file does not say its spacing yet, the command asks whether
+to write it in the file's =Local Variables:= block. The file keeps it from
+then on. A file that says already is kept up to date without asking. The buffer
+is left modified and not saved.
+
+The command also turns =garamond-mode= on, unless the buffer is one the mode
+never runs in (chapter 4).
+
+#+table: commands garamond-set-spacing
+
+** Making the text match
+
+=M-x garamond-adjust-spacing= does the same and then changes the text. Every gap
+after a sentence's end in the selection, or in the whole buffer when there is no
+selection, becomes 1 or 2 spaces, as one change. A sentence's end is =.=, =?=,
+=!=, =…= or =‽= after a letter, with any closing quotes or brackets, and more
+text on the same line.
+
+The gap after an abbreviation (for example Dr.) is made one space, as filling
+leaves it. A list item's number, line breaks, indentation and anything that is
+not prose are left as they are (chapter 3). A count gives the spacing and
+otherwise it is asked. Whether to write the spacing in the file is asked only
+when the whole buffer is changed.
+
+When it has finished, the command says how many sentence breaks it made, and
+how many gaps after abbreviations it made one space.
+
+#+table: commands garamond-adjust-spacing
+
+** In the file
+
+A file can also turn the mode on by name, in its own settings:
+
+#+begin_example
+-*- mode: org; mode: garamond -*-
+#+end_example
+
+The mode is not turned on if the buffer is one it never runs in. A file whose
+own settings are off (the editor's =*file-local-variables*= setting) is never
+written to by these commands. They say so instead.

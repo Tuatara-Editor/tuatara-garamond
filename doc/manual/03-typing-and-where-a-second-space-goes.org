@@ -1,0 +1,49 @@
+#+title: Typing and where a second space goes
+#+language: en
+
+* Typing and where a second space goes
+
+What =garamond-mode= does as you type, and where it leaves the text alone.
+
+** The mode
+
+=M-x garamond-mode= makes one space typed after a sentence's end two, or stops
+doing so. It acts only while the buffer's sentences are two spaces apart. The
+mode line says =2S= then. While they are one apart it says =1S=, and the mode
+waits. It also acts only in prose, and never after an abbreviation or a list
+item's number. A run of more spaces typed is made two.
+
+A count turns it on when it is positive and off when it is zero or less. It is
+turned on by itself in a file that says its spacing, and by
+=garamond-set-spacing= and =garamond-adjust-spacing=.
+
+=M-x garamond-follow-declarations-mode= turns that starting by itself on or
+off, for files opened after it. Its setting, =*garamond-follow-declarations*=,
+is on when the package is loaded.
+
+#+table: commands garamond-mode garamond-follow-declarations-mode
+
+** Where a second space goes
+
+Only where prose is written:
+
+- in a text mode (Org, Markdown, plain text and the rest), never in code,
+  tables, links, maths or a block's contents. Org's parse, or the language's
+  syntax tree, tells which is which;
+- in any other language, only in its comments.
+
+Where a language has a syntax tree that is not ready yet, nothing is doubled.
+
+** Abbreviations
+
+A word whose full stop shortens it (for example Dr. or Sept.) ends no sentence.
+The abbreviations are Tuatara's own, the ones its sentence commands and filling
+pass over. Add your own with =*extra-sentence-abbreviations*= and take any of
+Tuatara's out with =*removed-sentence-abbreviations*=, both in the init file.
+Chapter 2 of Tuatara's manual covers the sentence commands.
+
+** What a sentence's end is
+
+A letter, then =.=, =?=, =!=, =…= or =‽=, then any closing quotes or brackets.
+A list item's number (1. or 10.) ends no sentence, because no letter comes
+before its full stop.
