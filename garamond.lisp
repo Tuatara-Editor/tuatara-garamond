@@ -163,8 +163,9 @@ is zero or less."
 *GARAMOND-MODE-LINE* NIL."
   (declare (ignore editor))
   (when (and *garamond-mode-line* (garamond-on-p buffer))
-    (format nil "~:[(~a)~;~a~]" *garamond-double-space-on-typing*
-            (if (sentence-end-double-space-p buffer) "2S" "1S"))))
+    (if (sentence-end-double-space-p buffer)
+        (if *garamond-double-space-on-typing* "2S" "(2S)")
+        (if *garamond-double-space-on-typing* "1S" "(1S)"))))
 
 ;;; Saying which spacing a buffer uses
 

@@ -44,6 +44,17 @@ frontend, as a second value."
       (is string= "One. Two" text)
       (true (tuatara.frontend.fake:fake-frame-showing f "(2S)")))))
 
+(define-test (garamond mode-line-makes-no-string)
+  ;; the mode line, drawn at each redraw, gives one of four strings kept, making none
+  (let ((buffer (tuatara.buffer:make-buffer "garamond mode line")))
+    (unwind-protect
+         (progn
+           (setf (tuatara.buffer:buffer-local buffer :garamond) t)
+           (dolist (on '(t nil))
+             (let ((tuatara-user:*garamond-double-space-on-typing* on))
+               (true (eq (garamond::garamond-mode-line nil buffer) (garamond::garamond-mode-line nil buffer))))))
+      (tuatara.buffer:kill-buffer buffer))))
+
 (define-test (garamond typing-in-org)
   ;; prose doubled; a source block, a table, a link being typed and inline code left alone
   (is string= (format nil "One.  Two~%")
