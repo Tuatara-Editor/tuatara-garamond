@@ -21,13 +21,15 @@ nothing is left alone. Where it does say, typing, filling and the sentence
 commands follow the spacing the file asks for.
 
 It is a package, not part of the editor. It is made from the Emacs package of
-the same name, by the same author.
+the same name, by Michael A Jones.
 
 ** Seeing that it works
 
 Open a file with a =Local Variables:= block that says
 =sentence-end-double-space: t=. The mode line shows =2S=. =1S= means the file
-asks for one space between sentences.
+asks for one space between sentences. Bracketed, =(2S)= or =(1S)=, it means
+=*garamond-double-space-on-typing*= is nil: the spacing is shown, and typing
+is left alone.
 
 ** What this manual covers
 

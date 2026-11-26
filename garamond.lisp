@@ -3,8 +3,8 @@
 ;;;; Needs: Tuatara 0.90.25
 ;;;;
 ;;;; A package, not part of the editor: loaded by (load-package "garamond") in
-;;;; the init file. Made from garamond (github.com/yardquit/garamond), by the
-;;;; same author; README.md says more.
+;;;; the init file. Made from garamond (github.com/YardQuit/garamond), by
+;;;; Michael A Jones; README.md says more.
 ;;;;
 ;;;; One space or two after a full stop is a property of a document, so the
 ;;;; document says which in its own Local Variables: block,

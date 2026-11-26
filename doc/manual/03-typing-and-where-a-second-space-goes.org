@@ -11,7 +11,9 @@ What =garamond-mode= does as you type, and where it leaves the text alone.
 doing so. It acts only while the buffer's sentences are two spaces apart. The
 mode line says =2S= then. While they are one apart it says =1S=, and the mode
 waits. It also acts only in prose, and never after an abbreviation or a list
-item's number. A run of more spaces typed is made two.
+item's number. A run of more spaces typed is made two. With
+=*garamond-double-space-on-typing*= set to nil the mode makes nothing two, and
+the mode line says =(2S)= or =(1S)=, bracketed.
 
 A count turns it on when it is positive and off when it is zero or less. It is
 turned on by itself in a file that says its spacing, and by

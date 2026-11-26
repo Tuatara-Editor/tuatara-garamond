@@ -70,7 +70,7 @@ internet".
 
 ## Credits
 
-Made from the Emacs package of the same name, by the same author:
+Made from the Emacs package of the same name, by Michael A Jones:
 [github.com/YardQuit/garamond](https://github.com/YardQuit/garamond).
 
 ## License
